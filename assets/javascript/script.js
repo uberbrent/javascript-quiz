@@ -1,21 +1,25 @@
 // Create elements to build the HTML xxx
-// Build Question Array 
+// Build Question Array xxx 
 // Create Questions
+// write questions to page
+// wait for response
+// send response back to for loop to repeat
+
 // Build a timer
 // localStorage to save highscores
 
 // variables
-var questionsAnswers = [
-    {q1: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q2: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q3: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q4: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q5: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q6: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q7: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q8: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q9: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
-    {q10: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"}
+var questions = [
+    {q: "How Old Am I?", a: "39", b: "25", c: "34", d: "28"},
+    {q: "Favorite Food", a: "Hamburger", b: "Pizza", c: "Steak", d: "Pasta"},
+    {q: "First Video Game", a: "Super Mario Bros", b: "Halo", c: "Golf", d: "Sonic"},
+    {q: "Favorite Final Fantasy", a: "6", b: "7", c: "10", d: "1"},
+    {q: "Favorite Zelda", a: "Link To The Past", b: "Ocarina of Time", c: "Majora's Mask", d: "Legend of Zelda"},
+    {q: "Favorite Game Console", a: "PlayStation", b: "Super Nintendo", c: "N64", d: "DreamCast"},
+    {q: "Number of Earth's Moons", a: "2", b: "6", c: "0", d: "1"},
+    {q: "Shape of the Earth", a: "Flat", b: "Sphere", c: "Octahedron", d: "Ring"},
+    {q: "Best Number", a: "1", b: "69", c: "3", d: "1077"},
+    {q: "Favorite Daughter", a: "Elly", b: "Sophia", c: "Gretchen", d: "Sarah"}
 ]
 var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
@@ -47,19 +51,62 @@ var buttonDetection = function(event) {
     var targetEl = event.target;
 
     if (targetEl.matches(".start-button")) {
+        var taskSelected = document.querySelector("h2");
+        taskSelected.remove();
+        taskSelected = document.querySelector("p");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
         startQuiz();
     }
 };
 
+var mainTest = function() {
+    var h2ItemEl = document.createElement("h2");
+    h2ItemEl.className = "questions"
+    h2ItemEl.textContent = questions[i].q
+
+    var aButton = document.createElement("button");
+    aButton.textContent = questions[i].a
+    aButton.className = "start-button"
+
+    var bButton = document.createElement("button");
+    bButton.textContent = questions[i].b
+    bButton.className = "start-button"
+
+    var cButton = document.createElement("button");
+    cButton.textContent = questions[i].c
+    cButton.className = "start-button"
+
+    var dButton = document.createElement("button");
+    dButton.textContent = questions[i].d
+    dButton.className = "start-button"
+
+    questionBoxEl.appendChild(h2ItemEl);
+    questionBoxEl.appendChild(aButton);
+    questionBoxEl.appendChild(bButton);
+    questionBoxEl.appendChild(cButton);
+    questionBoxEl.appendChild(dButton);
+
+};
+
 // main for loop to begin the quiz
 var startQuiz = function() {
-    for (i = 0; i < questionsAnswers.length; i++) {
-        console.log(questionsAnswers)
+    for (i = 0; i < questions.length; i++) {
+        var answer = mainTest(questions[i]);
+
+        if (answer === false) {
+            // decuct time
+        }
     }
-}
+};
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
 
 // functions
 startPhase();
+
+
+// start loop
+// 
