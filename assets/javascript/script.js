@@ -1,9 +1,22 @@
-// Create elements to build the HTML
-// Build Question Array
+// Create elements to build the HTML xxx
+// Build Question Array 
 // Create Questions
 // Build a timer
 // localStorage to save highscores
 
+// variables
+var questionsAnswers = [
+    {q1: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q2: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q3: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q4: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q5: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q6: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q7: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q8: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q9: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"},
+    {q10: "Quest1", a1: "Ans1", a2: "Ans2", a3: "Ans3", a4: "Ans4"}
+]
 var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
@@ -29,6 +42,24 @@ var startPhase = function() {
     questionBoxEl.appendChild(startButton);
 };
 
-pageContentEl.addEventListener('click', startButton);
+// detect button click 
+var buttonDetection = function(event) {
+    var targetEl = event.target;
 
+    if (targetEl.matches(".start-button")) {
+        startQuiz();
+    }
+};
+
+// main for loop to begin the quiz
+var startQuiz = function() {
+    for (i = 0; i < questionsAnswers.length; i++) {
+        console.log(questionsAnswers)
+    }
+}
+
+// eventListeners
+pageContentEl.addEventListener('click', buttonDetection);
+
+// functions
 startPhase();
