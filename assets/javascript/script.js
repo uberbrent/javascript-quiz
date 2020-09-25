@@ -4,7 +4,7 @@
 // delete old elements xxx
 // write new question to page xxx
 // accept answer or return penalty xxx
-// Build a timer
+// Build a timer xxx
 // localStorage to save highscores
 
 // variables
@@ -20,13 +20,14 @@ var questions = [
     {q: "Best Number", a: "1", b: "69", c: "3", d: "1077"},
     {q: "Favorite Daughter", a: "Elly", b: "Sophia", c: "Gretchen", d: "Sarah"}
 ]
+var highScores = []
 var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
 var questionIndex = 0
 var answerVal = 0
-var timeLeft = 90
+var timeLeft = 5
 
 var startPhase = function() {
     // create element
@@ -36,7 +37,7 @@ var startPhase = function() {
 
     var startTextEl = document.createElement("p");
     startTextEl.className = "instructions"
-    startTextEl.textContent = "After clicking the start button, we will begin a timer of 120 seconds. Answer the questions as quickly as possible! If you answer incorrectly you will be docked time. Your score will be determined by the time remaining. Good luck!"
+    startTextEl.textContent = "After clicking the start button, we will begin a timer of 90 seconds. Answer the questions as quickly as possible! If you answer incorrectly you will be docked time. Your score will be determined by the time remaining. Good luck!"
     
     var startButton = document.createElement("button");
     startButton.textContent = "Begin!"
@@ -192,13 +193,45 @@ function countdown() {
         } else {
             timerBoxEl.textContent = "Time Expired!"
             clearInterval(timeInterval);
+            failClear();
         }
     }, 1000)
 };
 
-var endScreen = function() {
+var failClear = function() {
+    var taskSelected = document.querySelector("h2");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    endScreen();
+};
 
-}
+var endScreen = function() {
+    var h2ItemEl = document.createElement("h2");
+    h2ItemEl.className = "congrats"
+    h2ItemEl.textContent = "Congratulations!"
+
+    var h3ItemEl = document.createElement("h3");
+    h3ItemEl.className = "end-score"
+    h3ItemEl.textContent = "Your score is " + timeLeft + "!"
+
+    var textFieldEl = document.createElement("div");
+    textFieldEl.innerHTML = "<input type='text' name='initials' class='initials-input' placeholder='Enter Initials Here!' />"
+    var saveButton = document.createElement("button");
+    saveButton.classname = "save-score"
+    saveButton.textContent = "Ok"
+
+    questionBoxEl.appendChild(h2ItemEl);
+    questionBoxEl.appendChild(h3ItemEl);
+    questionBoxEl.appendChild(textFieldEl);
+    questionBoxEl.appendChild(saveButton);
+};
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
