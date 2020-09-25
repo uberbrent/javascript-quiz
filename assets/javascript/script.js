@@ -1,10 +1,9 @@
 // Create elements to build the HTML xxx
 // Build Question Array xxx 
-// Create Questions
-// write questions to page
-// wait for response
-// send response back to for loop to repeat
-
+// Create Questions xxx
+// delete old elements
+// write new question to page
+// accept answer or 
 // Build a timer
 // localStorage to save highscores
 
@@ -24,7 +23,11 @@ var questions = [
 var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
-var pageContentEl = document.querySelector('#page-content')
+var pageContentEl = document.querySelector('#page-content');
+var aButtonEl = document.querySelector('#a-button');
+var bButtonEl = document.querySelector('#b-button');
+var cButtonEl = document.querySelector('#c-button');
+var dButtonEl = document.querySelector('#d-button')
 
 var startPhase = function() {
     // create element
@@ -61,26 +64,59 @@ var buttonDetection = function(event) {
     }
 };
 
-var mainTest = function() {
+var aDetection = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.matches(".a-button")) {
+        nextQuiz();
+    }
+};
+
+var bDetection = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.matches(".b-button")) {
+        nextQuiz();
+    }
+};
+
+var cDetection = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.matches(".c-button")) {
+        nextQuiz();
+    }
+};
+
+var dDetection = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.matches(".d-button")) {
+        nextQuiz();
+    }
+};
+
+var questOne = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
     h2ItemEl.textContent = questions[i].q
 
     var aButton = document.createElement("button");
     aButton.textContent = questions[i].a
-    aButton.className = "start-button"
+    //aButton.setAttribute()
+    aButton.className = "a-button"
 
     var bButton = document.createElement("button");
     bButton.textContent = questions[i].b
-    bButton.className = "start-button"
+    bButton.className = "b-button"
 
     var cButton = document.createElement("button");
     cButton.textContent = questions[i].c
-    cButton.className = "start-button"
+    cButton.className = "c-button"
 
     var dButton = document.createElement("button");
     dButton.textContent = questions[i].d
-    dButton.className = "start-button"
+    dButton.className = "d-button"
 
     questionBoxEl.appendChild(h2ItemEl);
     questionBoxEl.appendChild(aButton);
@@ -90,23 +126,50 @@ var mainTest = function() {
 
 };
 
-// main for loop to begin the quiz
+// // main for loop to begin the quiz
 var startQuiz = function() {
-    for (i = 0; i < questions.length; i++) {
-        var answer = mainTest(questions[i]);
+    var questions = (i = 0)
+    var answer = questOne(questions[i]);
 
-        if (answer === false) {
-            // decuct time
-        }
-    }
+    
 };
+
+var nextQuiz = function() {
+    questions++
+    var taskSelected = document.querySelector("h2");
+    taskSelected.remove();
+    taskSelected = document.querySelector(".a-button");
+    taskSelected.remove();
+    taskSelected = document.querySelector(".b-button");
+    taskSelected.remove();
+    taskSelected = document.querySelector(".c-button");
+    taskSelected.remove();
+    taskSelected = document.querySelector(".d-button");
+    taskSelected.remove();
+    var answer = questHandler(questions[i]);
+}
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
+aButtonEl.addEventListener('click', aDetection);
+bButtonEl.addEventListener('click', bDetection);
+cButtonEl.addEventListener('click', cDetection);
+dButtonEl.addEventListener('click', dDetection);
+
 
 // functions
 startPhase();
 
 
-// start loop
-// 
+// populate q1
+
+// var codeQuestions = [
+//     {question: "Commonly used data types do NOT inclue:",
+//     answers: {
+//             1: "strings",
+//             2: "booleans",
+//             3: "alerts",
+//             4: "numbers",
+//      },
+//          rightAnswer: "3"
+//     },
