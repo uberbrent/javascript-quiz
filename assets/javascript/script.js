@@ -3,7 +3,7 @@
 // Create Questions xxx
 // delete old elements xxx
 // write new question to page xxx
-// accept answer or return penalty
+// accept answer or return penalty xxx
 // Build a timer
 // localStorage to save highscores
 
@@ -25,6 +25,7 @@ var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
 var questionIndex = 0
+var answerVal = 0
 
 var startPhase = function() {
     // create element
@@ -57,6 +58,7 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
+        globalTimer();
         questHandler();
     } else if (targetEl.matches(".a-button")) {
         var taskSelected = document.querySelector("h2");
@@ -69,7 +71,8 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        nextQuiz();
+        answerVal = 1
+        ansHandler();
     } else if (targetEl.matches(".b-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
@@ -81,7 +84,8 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        nextQuiz(); 
+        answerVal = 2
+        ansHandler();
     } else if (targetEl.matches(".c-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
@@ -93,7 +97,8 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        nextQuiz(); 
+        answerVal = 3
+        ansHandler();
     } else if (targetEl.matches(".d-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
@@ -105,7 +110,8 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        nextQuiz();  
+        answerVal = 4
+        ansHandler();  
     }
 };
 
@@ -136,9 +142,28 @@ var questHandler = function() {
     questionBoxEl.appendChild(bButton);
     questionBoxEl.appendChild(cButton);
     questionBoxEl.appendChild(dButton);
-
-
 };
+
+var ansHandler = function() {
+    if (answerVal === 1 && questionIndex === 3 ||
+        answerVal === 1 && questionIndex === 4 ||
+        answerVal === 1 && questionIndex === 9) {
+        alert("correct");
+    } else if (answerVal === 2 && questionIndex === 5 ||
+        answerVal === 2 && questionIndex === 7) {
+        alert("correct");
+    } else if (answerVal === 3 && questionIndex === 0 ||
+        answerVal === 3 && questionIndex === 2 ||
+        answerVal === 3 && questionIndex === 8) {
+        alert("correct");
+    } else if (answerVal === 4 && questionIndex === 1 ||
+        answerVal === 4 && questionIndex === 6) {
+        alert("correct");
+    } else {
+        // deduct time
+    }
+    nextQuiz();
+}
 
 var nextQuiz = function() {
     questionIndex++
@@ -149,8 +174,12 @@ var nextQuiz = function() {
     }
 };
 
+var globalTimer = function() {
+
+}
+
 var endScreen = function() {
-    
+
 }
 
 // eventListeners
@@ -158,17 +187,3 @@ pageContentEl.addEventListener('click', buttonDetection);
 
 // functions
 startPhase();
-
-
-// populate q1
-
-// var codeQuestions = [
-//     {question: "Commonly used data types do NOT inclue:",
-//     answers: {
-//             1: "strings",
-//             2: "booleans",
-//             3: "alerts",
-//             4: "numbers",
-//      },
-//          rightAnswer: "3"
-//     },
