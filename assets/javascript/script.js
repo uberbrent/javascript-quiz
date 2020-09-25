@@ -1,9 +1,9 @@
 // Create elements to build the HTML xxx
 // Build Question Array xxx 
 // Create Questions xxx
-// delete old elements
-// write new question to page
-// accept answer or 
+// delete old elements xxx
+// write new question to page xxx
+// accept answer or return penalty
 // Build a timer
 // localStorage to save highscores
 
@@ -24,6 +24,7 @@ var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
+var questionIndex = 0
 
 var startPhase = function() {
     // create element
@@ -56,7 +57,7 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        startQuiz();
+        questHandler();
     } else if (targetEl.matches(".a-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
@@ -112,22 +113,22 @@ var buttonDetection = function(event) {
 var questHandler = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
-    h2ItemEl.textContent = questions[i].q
+    h2ItemEl.textContent = questions[questionIndex].q
 
     var aButton = document.createElement("button");
-    aButton.textContent = questions[i].a
+    aButton.textContent = questions[questionIndex].a
     aButton.className = "a-button"
 
     var bButton = document.createElement("button");
-    bButton.textContent = questions[i].b
+    bButton.textContent = questions[questionIndex].b
     bButton.className = "b-button"
 
     var cButton = document.createElement("button");
-    cButton.textContent = questions[i].c
+    cButton.textContent = questions[questionIndex].c
     cButton.className = "c-button"
 
     var dButton = document.createElement("button");
-    dButton.textContent = questions[i].d
+    dButton.textContent = questions[questionIndex].d
     dButton.className = "d-button"
 
     questionBoxEl.appendChild(h2ItemEl);
@@ -139,23 +140,21 @@ var questHandler = function() {
 
 };
 
-// // main for loop to begin the quiz
-var startQuiz = function() {
-    var questions = (i = 0)
-    questHandler(questions[i]);
+var nextQuiz = function() {
+    questionIndex++
+    if (questionIndex < 10) {
+    questHandler(questions[questionIndex])
+    } else {
+        endScreen();
+    }
 };
 
-var nextQuiz = function() {
-    questions[i]++
-    console.log(questions[i])
-
-    questHandler(questions[i])
+var endScreen = function() {
+    
 }
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
-
-
 
 // functions
 startPhase();
