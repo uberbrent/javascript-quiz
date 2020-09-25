@@ -24,10 +24,6 @@ var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
-var aButtonEl = document.querySelector('#a-button');
-var bButtonEl = document.querySelector('#b-button');
-var cButtonEl = document.querySelector('#c-button');
-var dButtonEl = document.querySelector('#d-button')
 
 var startPhase = function() {
     // create element
@@ -61,49 +57,65 @@ var buttonDetection = function(event) {
         taskSelected = document.querySelector("button");
         taskSelected.remove();
         startQuiz();
-    }
-};
-
-var aDetection = function(event) {
-    var targetEl = event.target;
-
-    if (targetEl.matches(".a-button")) {
+    } else if (targetEl.matches(".a-button")) {
+        var taskSelected = document.querySelector("h2");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
         nextQuiz();
+    } else if (targetEl.matches(".b-button")) {
+        var taskSelected = document.querySelector("h2");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        nextQuiz(); 
+    } else if (targetEl.matches(".c-button")) {
+        var taskSelected = document.querySelector("h2");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        nextQuiz(); 
+    } else if (targetEl.matches(".d-button")) {
+        var taskSelected = document.querySelector("h2");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        taskSelected = document.querySelector("button");
+        taskSelected.remove();
+        nextQuiz();  
     }
 };
 
-var bDetection = function(event) {
-    var targetEl = event.target;
 
-    if (targetEl.matches(".b-button")) {
-        nextQuiz();
-    }
-};
-
-var cDetection = function(event) {
-    var targetEl = event.target;
-
-    if (targetEl.matches(".c-button")) {
-        nextQuiz();
-    }
-};
-
-var dDetection = function(event) {
-    var targetEl = event.target;
-
-    if (targetEl.matches(".d-button")) {
-        nextQuiz();
-    }
-};
-
-var questOne = function() {
+var questHandler = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
     h2ItemEl.textContent = questions[i].q
 
     var aButton = document.createElement("button");
     aButton.textContent = questions[i].a
-    //aButton.setAttribute()
     aButton.className = "a-button"
 
     var bButton = document.createElement("button");
@@ -124,37 +136,25 @@ var questOne = function() {
     questionBoxEl.appendChild(cButton);
     questionBoxEl.appendChild(dButton);
 
+
 };
 
 // // main for loop to begin the quiz
 var startQuiz = function() {
     var questions = (i = 0)
-    var answer = questOne(questions[i]);
-
-    
+    questHandler(questions[i]);
 };
 
 var nextQuiz = function() {
-    questions++
-    var taskSelected = document.querySelector("h2");
-    taskSelected.remove();
-    taskSelected = document.querySelector(".a-button");
-    taskSelected.remove();
-    taskSelected = document.querySelector(".b-button");
-    taskSelected.remove();
-    taskSelected = document.querySelector(".c-button");
-    taskSelected.remove();
-    taskSelected = document.querySelector(".d-button");
-    taskSelected.remove();
-    var answer = questHandler(questions[i]);
+    questions[i]++
+    console.log(questions[i])
+
+    questHandler(questions[i])
 }
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
-aButtonEl.addEventListener('click', aDetection);
-bButtonEl.addEventListener('click', bDetection);
-cButtonEl.addEventListener('click', cDetection);
-dButtonEl.addEventListener('click', dDetection);
+
 
 
 // functions
