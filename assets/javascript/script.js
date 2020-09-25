@@ -26,6 +26,7 @@ var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
 var questionIndex = 0
 var answerVal = 0
+var timeLeft = 90
 
 var startPhase = function() {
     // create element
@@ -58,7 +59,7 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         taskSelected = document.querySelector("button");
         taskSelected.remove();
-        globalTimer();
+        countdown();
         questHandler();
     } else if (targetEl.matches(".a-button")) {
         var taskSelected = document.querySelector("h2");
@@ -160,7 +161,8 @@ var ansHandler = function() {
         answerVal === 4 && questionIndex === 6) {
         alert("correct");
     } else {
-        // deduct time
+        alert("incorrect!")
+        timeLeft = timeLeft - 10
     }
     nextQuiz();
 }
@@ -174,9 +176,25 @@ var nextQuiz = function() {
     }
 };
 
-var globalTimer = function() {
+function countdown() {
+    var timerBoxEl = document.createElement("p");
+    timerBoxEl.className = "timer"
+    timerBoxEl.textContent = "90 seconds remaining!"
+    questionBoxEl.appendChild(timerBoxEl);
 
-}
+    var timeInterval = setInterval(function() {
+        if (timeLeft > 1) {
+            timerBoxEl.textContent = timeLeft + " seconds remaining!"
+            timeLeft--;
+        } else if (timeLeft === 1) {
+            timerBoxEl.textContent = timeLeft + " second remaining!"
+            timeLeft--;
+        } else {
+            timerBoxEl.textContent = "Time Expired!"
+            clearInterval(timeInterval);
+        }
+    }, 1000)
+};
 
 var endScreen = function() {
 
