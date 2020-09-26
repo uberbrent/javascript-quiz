@@ -21,16 +21,18 @@ var questions = [
     {q: "Favorite Daughter", a: "Elly", b: "Sophia", c: "Gretchen", d: "Sarah"}
 ]
 var highScores = []
+var scoresListEl = document.querySelector("#hiscores")
 var questionBoxEl = document.querySelector('#js-flexbox');
 var answersBoxEl = document.querySelector('#js-flexbox');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
+var tryAgainEl = document.querySelector("#try-again")
 var questionIndex = 0
 var answerVal = 0
-var timeLeft = 5
+var timeLeft = 89
 
+// initial screen prior to button press, will display upon loading page
 var startPhase = function() {
-    // create element
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
     h2ItemEl.textContent = "Welcome to the best quiz ever!"
@@ -43,13 +45,24 @@ var startPhase = function() {
     startButton.textContent = "Begin!"
     startButton.className = "start-button"
 
-    // display element
     questionBoxEl.appendChild(h2ItemEl);
     questionBoxEl.appendChild(startTextEl);
     questionBoxEl.appendChild(startButton);
 };
 
-// detect button click 
+var loadScores = function() {
+    var savedScores = localStorage.getItem("score");
+    if (!savedScores) {
+        return false;
+    }
+    savedScores = JSON.parse(savedScores);
+    for (var i = 0; i < savedScores.length; i++) {
+        highScores.push(savedScores[i]);
+    }
+    
+}
+
+// handler to determine what the button will do once the click is detected 
 var buttonDetection = function(event) {
     var targetEl = event.target;
 
@@ -82,9 +95,22 @@ var buttonDetection = function(event) {
         ansHandler(); 
     } else if (targetEl.matches(".save-score")) {
         hiScoreHandler();
+    } else if (targetEl.matches(".try-again")) {
+        for (i = 0; i < highScores.length; i++) {
+            taskSelected = document.querySelector("li")
+            taskSelected.remove()
+        }
+        taskSelected = document.querySelector("h2")
+        taskSelected.remove();
+        taskSelected = document.querySelector("button")
+        taskSelected.remove();
+        timeLeft = 90
+        questionIndex = 0
+        startPhase();
     }
 };
 
+// quick function to remove prior page text between questions
 var questionRemoval = function() {
     var taskSelected = document.querySelector("h2");
     taskSelected.remove();
@@ -98,6 +124,7 @@ var questionRemoval = function() {
     taskSelected.remove();
 };
 
+// populates the new question text between selections
 var questHandler = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
@@ -126,6 +153,7 @@ var questHandler = function() {
     questionBoxEl.appendChild(dButton);
 };
 
+// determines if answer was correct by comparing the button value to the question index number
 var ansHandler = function() {
     if (answerVal === 1 && questionIndex === 3 ||
         answerVal === 1 && questionIndex === 4 ||
@@ -148,6 +176,7 @@ var ansHandler = function() {
     nextQuiz();
 }
 
+// iterates the question index and handles split after answsering all questions
 var nextQuiz = function() {
     questionIndex++
     if (questionIndex < 10) {
@@ -157,14 +186,19 @@ var nextQuiz = function() {
     }
 };
 
+// global timer to handle the countdown
 function countdown() {
     var timerBoxEl = document.createElement("p");
     timerBoxEl.className = "timer"
-    timerBoxEl.textContent = "5 seconds remaining!"
+    timerBoxEl.textContent = "90 seconds remaining!"
     questionBoxEl.appendChild(timerBoxEl);
 
     var timeInterval = setInterval(function() {
-        if (timeLeft > 1) {
+        if (9 < questionIndex) {
+        timerBoxEl.textContent = timeLeft + " is your final score!"
+        timerBoxEl.remove()
+        clearInterval(timeInterval);
+        } else if (timeLeft > 1) {
             timerBoxEl.textContent = timeLeft + " seconds remaining!"
             timeLeft--;
         } else if (timeLeft === 1) {
@@ -178,11 +212,13 @@ function countdown() {
     }, 1000)
 };
 
+// failsafe if all questions are not answered within the time frame
 var failClear = function() {
     questionRemoval();
     endScreen();
 };
 
+// handles the creation of the high score object and sends it to local storage
 var hiScoreHandler = function() {
     //preventDefault();
 
@@ -200,19 +236,21 @@ var hiScoreHandler = function() {
             score: scoreInput
         }
     }
-    
-    localStorage.setItem("score", JSON.stringify(hiScoreObj))
+    highScores.push(hiScoreObj)
+    localStorage.setItem("score", JSON.stringify(highScores))
 
+    taskSelected = document.querySelector("h2");
+    taskSelected.remove();
     taskSelected = document.querySelector("h3");
     taskSelected.remove();
-    taskSelected = document.querySelector("div");
+    taskSelected = document.querySelector("input");
     taskSelected.remove();
     taskSelected = document.querySelector("button");
     taskSelected.remove();
-
-    displayScores();
+    rankList();
 };
 
+// creates and displays the end of game screen
 var endScreen = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "congrats"
@@ -234,14 +272,30 @@ var endScreen = function() {
     questionBoxEl.appendChild(saveButton);
 };
 
+// displays all of the scores and gives action to restart challenge
 var rankList = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "questions"
-    h2ItemEl.textContent = ""
+    h2ItemEl.textContent = "Your Scores!"
+    questionBoxEl.appendChild(h2ItemEl);
+
+    for (i = 0; i < highScores.length; i++) {
+        var scoresList = document.createElement("li");
+        scoresList.className = "scores-list"
+        scoresList.textContent = highScores[i].name + ":  " + highScores[i].score
+
+        scoresListEl.appendChild(scoresList)
+    }
+
+    var tryAgain = document.createElement("button")
+    tryAgain.className = "try-again"
+    tryAgain.textContent = "Try Again?"
+    tryAgainEl.appendChild(tryAgain);
 };
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
 
 // functions
+loadScores();
 startPhase();
