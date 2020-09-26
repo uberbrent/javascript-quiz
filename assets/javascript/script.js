@@ -63,55 +63,21 @@ var buttonDetection = function(event) {
         countdown();
         questHandler();
     }  else if (targetEl.matches(".a-button")) {
-        var taskSelected = document.querySelector("h2");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
+        questionRemoval();
         answerVal = 1
         ansHandler();
     } else if (targetEl.matches(".b-button")) {
-        var taskSelected = document.querySelector("h2");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
+        questionRemoval();
         answerVal = 2
         ansHandler();
     } else if (targetEl.matches(".c-button")) {
         var taskSelected = document.querySelector("h2");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
+        questionRemoval();
         answerVal = 3
         ansHandler();
     } else if (targetEl.matches(".d-button")) {
         var taskSelected = document.querySelector("h2");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
-        taskSelected = document.querySelector("button");
-        taskSelected.remove();
+        questionRemoval();
         answerVal = 4
         ansHandler(); 
     } else if (targetEl.matches(".save-score")) {
@@ -119,6 +85,18 @@ var buttonDetection = function(event) {
     }
 };
 
+var questionRemoval = function() {
+    var taskSelected = document.querySelector("h2");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+};
 
 var questHandler = function() {
     var h2ItemEl = document.createElement("h2");
@@ -201,16 +179,7 @@ function countdown() {
 };
 
 var failClear = function() {
-    var taskSelected = document.querySelector("h2");
-    taskSelected.remove();
-    taskSelected = document.querySelector("button");
-    taskSelected.remove();
-    taskSelected = document.querySelector("button");
-    taskSelected.remove();
-    taskSelected = document.querySelector("button");
-    taskSelected.remove();
-    taskSelected = document.querySelector("button");
-    taskSelected.remove();
+    questionRemoval();
     endScreen();
 };
 
@@ -222,19 +191,27 @@ var hiScoreHandler = function() {
 
     console.log(textInput)
     
-     if (!textInput) {
-         alert("Please enter your initials!")
-         return false
-     } else {
-         var hiScoreObj = {
-             name: textInput,
-             score: scoreInput
-         }
-     }
-     textFieldEl.reset();
-     highScores.push(hiScoreObj)
-     rankList();
-}
+    if (!textInput) {
+        alert("Please enter your initials!")
+        return false
+    } else {
+        var hiScoreObj = {
+            name: textInput,
+            score: scoreInput
+        }
+    }
+    
+    localStorage.setItem("score", JSON.stringify(hiScoreObj))
+
+    taskSelected = document.querySelector("h3");
+    taskSelected.remove();
+    taskSelected = document.querySelector("div");
+    taskSelected.remove();
+    taskSelected = document.querySelector("button");
+    taskSelected.remove();
+
+    displayScores();
+};
 
 var endScreen = function() {
     var h2ItemEl = document.createElement("h2");
@@ -258,8 +235,10 @@ var endScreen = function() {
 };
 
 var rankList = function() {
-
-}
+    var h2ItemEl = document.createElement("h2");
+    h2ItemEl.className = "questions"
+    h2ItemEl.textContent = ""
+};
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
