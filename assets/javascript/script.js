@@ -62,7 +62,7 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         countdown();
         questHandler();
-    } else if (targetEl.matches(".a-button")) {
+    }  else if (targetEl.matches(".a-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
         taskSelected = document.querySelector("button");
@@ -113,7 +113,9 @@ var buttonDetection = function(event) {
         taskSelected = document.querySelector("button");
         taskSelected.remove();
         answerVal = 4
-        ansHandler();  
+        ansHandler(); 
+    } else if (targetEl.matches(".save-score")) {
+        hiScoreHandler();
     }
 };
 
@@ -180,7 +182,7 @@ var nextQuiz = function() {
 function countdown() {
     var timerBoxEl = document.createElement("p");
     timerBoxEl.className = "timer"
-    timerBoxEl.textContent = "90 seconds remaining!"
+    timerBoxEl.textContent = "5 seconds remaining!"
     questionBoxEl.appendChild(timerBoxEl);
 
     var timeInterval = setInterval(function() {
@@ -212,6 +214,28 @@ var failClear = function() {
     endScreen();
 };
 
+var hiScoreHandler = function() {
+    //preventDefault();
+
+    var textInput = document.querySelector("input[name='initials']").value
+    var scoreInput = timeLeft
+
+    console.log(textInput)
+    
+     if (!textInput) {
+         alert("Please enter your initials!")
+         return false
+     } else {
+         var hiScoreObj = {
+             name: textInput,
+             score: scoreInput
+         }
+     }
+     textFieldEl.reset();
+     highScores.push(hiScoreObj)
+     rankList();
+}
+
 var endScreen = function() {
     var h2ItemEl = document.createElement("h2");
     h2ItemEl.className = "congrats"
@@ -224,7 +248,7 @@ var endScreen = function() {
     var textFieldEl = document.createElement("div");
     textFieldEl.innerHTML = "<input type='text' name='initials' class='initials-input' placeholder='Enter Initials Here!' />"
     var saveButton = document.createElement("button");
-    saveButton.classname = "save-score"
+    saveButton.className = "save-score"
     saveButton.textContent = "Ok"
 
     questionBoxEl.appendChild(h2ItemEl);
@@ -232,6 +256,10 @@ var endScreen = function() {
     questionBoxEl.appendChild(textFieldEl);
     questionBoxEl.appendChild(saveButton);
 };
+
+var rankList = function() {
+
+}
 
 // eventListeners
 pageContentEl.addEventListener('click', buttonDetection);
