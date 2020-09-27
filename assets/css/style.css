@@ -23,17 +23,74 @@ header h1 {
     color: var(--primary-color);
 }
 
-.questions-prompt h2 {
-    font-size: 48px;
+.gameboard {
+    display: flex;
+    border-radius: 15px;
+    flex-wrap: wrap;
+    flex: 1 60%;
+    margin: 10% 25%;
+    border: 5px solid var(--button-color);
+    padding: 20px;
+    flex-direction: column;
+    background: #FDFFD6;
+}
+
+.timer {
+    text-align: end;
+}
+
+.questions {
+    text-align: center;
+    font-size: 36px;
+    padding: 0 0 15px 0;
+    color: var(--main-text);
+}
+
+.instructions {
+    text-align: center;
+    font-size: 20px;
+    color: var(--main-text);
+}
+
+.answers-flexbox {
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
 
-.answers-list h3 {
-    font-size: 24px;
+button {
+    color: var(--primary-color);
+    background-color: var(--button-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin: 15px 35%;
     text-align: center;
 }
 
-.active-timer h3 {
-    font-size: 24px;
+.end-score {
     text-align: center;
+    font-size: 30px;
+    padding: 0 0 15px 0;
+    color: var(--main-text);
+}
+
+input {
+    border: 1px solid var(--secondary-color);
+    display: block;
+    padding: 7px 15px;
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin: 15px 35%;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.75);   
+}
+
+.gameboard ul {
+    list-style: none;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }

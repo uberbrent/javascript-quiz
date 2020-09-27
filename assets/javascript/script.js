@@ -23,7 +23,7 @@ var questions = [
 var highScores = []
 var scoresListEl = document.querySelector("#hiscores")
 var questionBoxEl = document.querySelector('#js-flexbox');
-var answersBoxEl = document.querySelector('#js-flexbox');
+var answersBoxEl = document.querySelector('#ans-flex');
 var timerBoxEl = document.querySelector('#js-flexbox');
 var pageContentEl = document.querySelector('#page-content');
 var tryAgainEl = document.querySelector("#try-again")
@@ -43,11 +43,11 @@ var startPhase = function() {
     
     var startButton = document.createElement("button");
     startButton.textContent = "Begin!"
-    startButton.className = "start-button"
+    startButton.setAttribute("id", "start-button")
 
     questionBoxEl.appendChild(h2ItemEl);
     questionBoxEl.appendChild(startTextEl);
-    questionBoxEl.appendChild(startButton);
+    answersBoxEl.appendChild(startButton);
 };
 
 var loadScores = function() {
@@ -66,7 +66,7 @@ var loadScores = function() {
 var buttonDetection = function(event) {
     var targetEl = event.target;
 
-    if (targetEl.matches(".start-button")) {
+    if (targetEl.matches("#start-button")) {
         var taskSelected = document.querySelector("h2");
         taskSelected.remove();
         taskSelected = document.querySelector("p");
@@ -75,27 +75,27 @@ var buttonDetection = function(event) {
         taskSelected.remove();
         countdown();
         questHandler();
-    }  else if (targetEl.matches(".a-button")) {
+    }  else if (targetEl.matches("#a-button")) {
         questionRemoval();
         answerVal = 1
         ansHandler();
-    } else if (targetEl.matches(".b-button")) {
+    } else if (targetEl.matches("#b-button")) {
         questionRemoval();
         answerVal = 2
         ansHandler();
-    } else if (targetEl.matches(".c-button")) {
+    } else if (targetEl.matches("#c-button")) {
         var taskSelected = document.querySelector("h2");
         questionRemoval();
         answerVal = 3
         ansHandler();
-    } else if (targetEl.matches(".d-button")) {
+    } else if (targetEl.matches("#d-button")) {
         var taskSelected = document.querySelector("h2");
         questionRemoval();
         answerVal = 4
         ansHandler(); 
-    } else if (targetEl.matches(".save-score")) {
+    } else if (targetEl.matches("#save-score")) {
         hiScoreHandler();
-    } else if (targetEl.matches(".try-again")) {
+    } else if (targetEl.matches("#try-again")) {
         for (i = 0; i < highScores.length; i++) {
             taskSelected = document.querySelector("li")
             taskSelected.remove()
@@ -132,25 +132,25 @@ var questHandler = function() {
 
     var aButton = document.createElement("button");
     aButton.textContent = questions[questionIndex].a
-    aButton.className = "a-button"
+    aButton.setAttribute("id", "a-button")
 
     var bButton = document.createElement("button");
     bButton.textContent = questions[questionIndex].b
-    bButton.className = "b-button"
+    bButton.setAttribute("id", "b-button")
 
     var cButton = document.createElement("button");
     cButton.textContent = questions[questionIndex].c
-    cButton.className = "c-button"
+    cButton.setAttribute("id", "c-button")
 
     var dButton = document.createElement("button");
     dButton.textContent = questions[questionIndex].d
-    dButton.className = "d-button"
+    dButton.setAttribute("id", "d-button")
 
     questionBoxEl.appendChild(h2ItemEl);
-    questionBoxEl.appendChild(aButton);
-    questionBoxEl.appendChild(bButton);
-    questionBoxEl.appendChild(cButton);
-    questionBoxEl.appendChild(dButton);
+    answersBoxEl.appendChild(aButton);
+    answersBoxEl.appendChild(bButton);
+    answersBoxEl.appendChild(cButton);
+    answersBoxEl.appendChild(dButton);
 };
 
 // determines if answer was correct by comparing the button value to the question index number
@@ -253,7 +253,7 @@ var hiScoreHandler = function() {
 // creates and displays the end of game screen
 var endScreen = function() {
     var h2ItemEl = document.createElement("h2");
-    h2ItemEl.className = "congrats"
+    h2ItemEl.className = "questions"
     h2ItemEl.textContent = "Congratulations!"
 
     var h3ItemEl = document.createElement("h3");
@@ -263,13 +263,13 @@ var endScreen = function() {
     var textFieldEl = document.createElement("div");
     textFieldEl.innerHTML = "<input type='text' name='initials' class='initials-input' placeholder='Enter Initials Here!' />"
     var saveButton = document.createElement("button");
-    saveButton.className = "save-score"
+    saveButton.setAttribute("id", "save-score")
     saveButton.textContent = "Ok"
 
     questionBoxEl.appendChild(h2ItemEl);
     questionBoxEl.appendChild(h3ItemEl);
     questionBoxEl.appendChild(textFieldEl);
-    questionBoxEl.appendChild(saveButton);
+    answersBoxEl.appendChild(saveButton);
 };
 
 // displays all of the scores and gives action to restart challenge
@@ -288,7 +288,7 @@ var rankList = function() {
     }
 
     var tryAgain = document.createElement("button")
-    tryAgain.className = "try-again"
+    tryAgain.setAttribute("id", "try-again")
     tryAgain.textContent = "Try Again?"
     tryAgainEl.appendChild(tryAgain);
 };
