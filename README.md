@@ -9,9 +9,9 @@ This application is a small quiz powered almost entirely by JavaScript. All of t
 The live website can be found at https://uberbrent.github.io/javascript-quiz/
 
 ## Screenshots
-Example of the updated HTML for easier reading:
+Example screen of the live JS code:
 ![JavaScript Screen](assets/images/javascript-img.png)
 
-Example of the CSS consolidation with notes:
+Example of the application start screen:
 ![Application Screen](assets/images/application-img.png)
 
