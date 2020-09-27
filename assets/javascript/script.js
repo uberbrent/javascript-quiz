@@ -5,7 +5,7 @@
 // write new question to page xxx
 // accept answer or return penalty xxx
 // Build a timer xxx
-// localStorage to save highscores
+// localStorage to save highscores xxx
 
 // variables
 var questions = [
